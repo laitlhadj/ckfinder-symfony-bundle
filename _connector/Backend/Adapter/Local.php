@@ -50,6 +50,13 @@ class Local extends \League\Flysystem\Adapter\Local
      */
     public function __construct(array $backendConfig)
     {
+        $host = $_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : 'nocompany.sportigo.fr';
+        $hostname = explode(".", $host, 2);
+        //$companyKey = crc32(array_shift($hostname));
+
+        $backendConfig['baseUrl'] .= $hostname;
+        $backendConfig['root'] .= $hostname;
+
         $this->backendConfig = $backendConfig;
 
         if (!isset($backendConfig['root']) || empty($backendConfig['root'])) {
