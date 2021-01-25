@@ -74,13 +74,6 @@ class Backend extends Filesystem
      */
     public function __construct(array $backendConfig, CKFinder $app, AdapterInterface $adapter, $filesystemConfig = null)
     {
-        $host = $_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : 'nocompany.sportigo.fr';
-        $hostname = explode(".", $host, 2);
-        //$companyKey = crc32(array_shift($hostname));
-
-        $backendConfig['baseUrl'] .= $hostname;
-        $backendConfig['root'] .= $hostname;
-
         $this->app = $app;
         $this->backendConfig = $backendConfig;
         $this->acl = $app['acl'];

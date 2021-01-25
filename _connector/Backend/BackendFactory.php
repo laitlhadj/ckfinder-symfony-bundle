@@ -120,6 +120,16 @@ class BackendFactory
         });
 
         $this->registerAdapter('s3', function ($backendConfig) {
+
+            if (isset($backendConfig['baseUrl']) && isset($backendConfig['root'])) {
+                $host = $_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : 'nocompany.sportigo.fr';
+                $hostname = explode(".", $host, 2);
+                //$companyKey = crc32(array_shift($hostname));
+
+                $backendConfig['baseUrl'] .= $hostname[0];
+                $backendConfig['root'] .= $hostname[0];
+            }
+
             $clientConfig = array(
                 'credentials' => array(
                     'key'    => $backendConfig['key'],
